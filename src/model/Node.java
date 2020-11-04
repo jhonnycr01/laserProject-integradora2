@@ -8,10 +8,12 @@ public class Node {
 	private Node prev;
 	private Node up;	
 	private Node down;
+	private char letter;
 	
 	public Node(int r, int c) {
 		row = r;
 		col = c;
+		letter = ' ';
 	}
 	
 	public int getRow() {
@@ -59,6 +61,16 @@ public class Node {
 	}
 	
 	public String toString() {
-		return "[("+row+","+col+")]";
+		return "["+ letter+"]" + row + "," + col;
 	}
+
+	public char getLetter() {
+		return letter;
+	}
+
+	public void setLetter(char letter) {
+		this.letter = letter;
+	}
+	
+	
 }

@@ -107,7 +107,7 @@ public class Menu {
 		int k = Integer.parseInt(values[3]);
 		
 	//	g= new Game(name, n, m, k);
-		board= new Matrix(m, n, k);
+		board= new Matrix(n, m, k);
 		
 		System.out.println(board);
 		
