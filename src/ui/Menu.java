@@ -1,27 +1,18 @@
 package ui;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import model.*;
+import model.Game;
+import model.Matrix;
 
 public class Menu {
-
-	private Scanner sc;
-	private Node start;
-	private Node end;
 
 	// Game g;
 	// BinaryTree scores;
 	Matrix board;
 
 	public Menu() {
-		sc = new Scanner(System.in);
-
 		showWelcomeMsg();
 		systemHandler();
 
@@ -90,7 +81,7 @@ public class Menu {
 	}
 
 	private void play() {
-		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
 		System.out.println(
 				"please enter your nickname, rows, columns and amount of mirrors all in one line like this: \n>"
 						+ "like this: `juan 3 5 9");
@@ -101,197 +92,12 @@ public class Menu {
 		int m = Integer.parseInt(values[2]);
 		int k = Integer.parseInt(values[3]);
 
-		// g= new Game(name, n, m, k);
-		board = new Matrix(n, m, k);
-
-		shut();
-
-	}
-
-	public void shut() {
-
-		/*
-		 * una frase indicando el nickname del usuario seguido de cuántos espejos faltan
-		 * por ubicar. Por ejemplo: seyerman: 4 mirrors remaining.
-		 */
-		System.out.println(board);
-		
-		// Reiniciar S y E
-		if (start != null) {
-			start.setLetter(' ');
-		}
-		if (end != null) {
-			end.setLetter(' ');
-		}
-		
-		String v = sc.nextLine();
-		
-		if (v.contains("menu")) {
-			return;
-		}
-
-		int row = Integer.parseInt(String.valueOf(v.charAt(0)));
-		int col = v.charAt(1) - 64;
-		Character o = v.length() >= 3 ? v.charAt(2) : null;
-
-		start = board.findByCol(board.getFirst(), col);
-		start = board.findByRow(start, row);
-		start.setLetter('S');
-
-		if (row == 1 && col == 1) {
-			if (o == null || o == 'H') {
-				end = moveRight(start);
-			} else if(o == 'V') {
-				end = moveDown(start);
-			} else {
-				shut();
-			}
-		} else if (row == 1 && col == board.getNumCols()) {
-			if (o == null || o == 'H') {
-				end = moveLeft(start);
-			} else if(o == 'V') {
-				end = moveDown(start);
-			} else {
-				shut();
-			}
-		} else if (row == board.getNumRows() && col == 1) {
-			if (o == null || o == 'H') {
-				end = moveRight(start);
-			} else if(o == 'V') {
-				end = moveUp(start);
-			} else {
-				shut();
-			}
-		} else if (row == board.getNumRows() && col == board.getNumCols()) {
-			if (o == null || o == 'H') {
-				end = moveLeft(start);
-			} else if(o == 'V') {
-				end = moveUp(start);
-			} else {
-				shut();
-			}
-		} else if (row == 1) {
-			end = moveDown(start);
-		} else if(row == board.getNumRows()) {
-			end = moveUp(start);
-		} else if (col == 1) {
-			end = moveRight(start);
-		} else if(col == board.getNumCols()) {
-			end = moveLeft(start);
-		}		
-		
-		shut();
-	}
-
-	private Node moveLeft(Node from) {
-		if (from.getLetter() == '/') {
-			Node next = from.getDown();
-			if (next == null) {
-				from.setLetter('E');
-				return from;
-			}
-			return moveDown(next);
-		}
-		
-		if (from.getLetter() == '\\') {
-			Node next = from.getUp();
-			if (next == null) {
-				from.setLetter('E');
-				return from;
-			}
-			return moveUp(next);
-		}
-		
-		Node next = from.getPrev();
-		if (next == null) {
-			from.setLetter('E');
-			return from;
-		}
-		return moveLeft(next);
-	}
-
-	private Node moveRight(Node from) {
-		if (from.getLetter() == '/') {
-			Node next = from.getUp();
-			if (next == null) {
-				from.setLetter('E');
-				return from;
-			}
-			return moveUp(next);
-		}
-		
-		if (from.getLetter() == '\\') {
-			Node next = from.getDown();
-			if (next == null) {
-				from.setLetter('E');
-				return from;
-			}
-			return moveDown(next);
-		}
-		
-		Node next = from.getNext();
-		if (next == null) {
-			from.setLetter('E');
-			return from;
-		}
-		return moveRight(next);
-	}
-
-	private Node moveUp(Node from) {
-		if (from.getLetter() == '/') {
-			Node next = from.getNext();
-			if (next == null) {
-				from.setLetter('E');
-				return from;
-			}
-			return moveRight(next);
-		}
-		
-		if (from.getLetter() == '\\') {
-			Node next = from.getPrev();
-			if (next == null) {
-				from.setLetter('E');
-				return from;
-			}
-			return moveLeft(next);
-		}
-		
-		Node next = from.getUp();
-		if (next == null) {
-			from.setLetter('E');
-			return from;
-		}
-		return moveUp(next);
-	}
-
-	private Node moveDown(Node from) {
-		if (from.getLetter() == '/') {
-			Node next = from.getPrev();
-			if (next == null) {
-				from.setLetter('E');
-				return from;
-			}
-			return moveLeft(next);
-		}
-		
-		if (from.getLetter() == '\\') {
-			Node next = from.getNext();
-			if (next == null) {
-				from.setLetter('E');
-				return from;
-			}
-			return moveRight(next);
-		}
-		
-		Node next = from.getDown();
-		if (next == null) {
-			from.setLetter('E');
-			return from;
-		}
-		return moveDown(next);
+		Game game = new Game(name, n, m, k);
+		game.play();
 	}
 
 	public int systemMenu() {
+		Scanner sc = new Scanner(System.in);
 		int value;
 		while (!false) {
 			try {
