@@ -66,7 +66,6 @@ public class Matrix {
 	private void createMatrix() {
 		first = new Node(1,1);
 		createRow(1,1,first);
-		System.out.println(this);
 		createMirrows(mirrows);
 	}
 

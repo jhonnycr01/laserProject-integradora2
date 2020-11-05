@@ -96,7 +96,7 @@ public class Menu {
 
 	private void play() {
 		// TODO Auto-generated method stub
-		System.out.println("please enter your nickname, rows, columns and amount of mirrors all in one line like this: <br>"
+		System.out.println("please enter your nickname, rows, columns and amount of mirrors all in one line like this: \n>"
 				+ "like this: `juan 3 5 9"
 		);
 		String v= sc.nextLine();
@@ -111,6 +111,14 @@ public class Menu {
 		
 		System.out.println(board);
 		
+	}
+	
+	public void shut() {
+		String v= sc.nextLine();
+		int row = Integer.parseInt(String.valueOf(v.charAt(0)));
+		int col = v.charAt(1) - 55;
+		
+		System.out.println(row + "-" + col);
 	}
 
 	public int systemMenu() {
@@ -136,5 +144,4 @@ public class Menu {
 		}
 	}
 
-	
 }
