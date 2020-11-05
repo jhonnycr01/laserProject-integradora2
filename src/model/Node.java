@@ -61,7 +61,7 @@ public class Node {
 	}
 	
 	public String toString() {
-		return "["+ letter+"]" + row + "," + col;
+		return "["+ letter+"]";// + row + "," + col;
 	}
 
 	public char getLetter() {

@@ -158,7 +158,7 @@ public class Matrix {
 	}
 
 	
-	private Node findByRow(Node from, int i) {
+	public Node findByRow(Node from, int i) {
 		if(from.getRow() == i) {
 			return from;
 		} else {
@@ -166,7 +166,7 @@ public class Matrix {
 		}
 	}
 	
-	private Node findByCol(Node from, int j) {
+	public Node findByCol(Node from, int j) {
 		if(from.getCol() == j) {
 			return from;
 		} else {
