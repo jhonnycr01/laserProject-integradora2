@@ -93,7 +93,7 @@ public class Menu {
 		int k = Integer.parseInt(values[3]);
 
 		Game game = new Game(name, n, m, k);
-		game.play();
+		int score = game.play();
 	}
 
 	public int systemMenu() {
