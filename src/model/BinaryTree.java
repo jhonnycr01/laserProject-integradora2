@@ -56,21 +56,25 @@ public class BinaryTree implements Serializable{
 		}
 		
 		public void printInorder(){
+			if (root == null) {
+	        	System.out.println("the tree is empty");
+	        	return;
+	        }
 			printInorder(this.root);
 		}
 		
 		
 		public void printInorder(Leaf node){ 
 		        if (node == null) {
-		        	System.out.println("the tree is empty");
-		        }else {
+		        	//System.out.println("the tree is empty");
+		        } else {
 		            
 		  
 		        /* first recur on left child */
 		        printInorder(node.getLeft()); 
 		  
 		        /* then print the data of node */
-		        System.out.print(node.getNickname() + " "+node.getScore()); 
+		        System.out.println(node.getNickname() + " "+node.getScore()); 
 		  
 		        /* now recur on right child */
 		        printInorder(node.getRight()); 

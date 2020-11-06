@@ -18,11 +18,11 @@ public class Game {
 
 	private char locatedCharBackup;
 
-	private String nombre;
+	private String name;
 	private int score;
 
 	public Game(String nick, int n, int m, int k) {
-		nombre = nick;
+		name = nick;
 		score = 0;
 		board = new Matrix(n, m, k);
 	}
@@ -42,7 +42,7 @@ public class Game {
 		 * una frase indicando el nickname del usuario seguido de cuántos espejos faltan
 		 * por ubicar. Por ejemplo: seyerman: 4 mirrors remaining.
 		 */
-		System.out.println(nombre + ": " + (board.getMirrows() - score) + " mirrors remaining. Score: " + score);
+		System.out.println(name + ": " + (board.getMirrows() - score) + " mirrors remaining. Score: " + score);
 
 		Scanner sc = new Scanner(System.in);
 		System.out.println(board);
