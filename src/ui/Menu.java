@@ -10,7 +10,7 @@ public class Menu {
 
 	// Game g;
 	// BinaryTree scores;
-	Matrix board;
+	//Matrix board;
 
 	public Menu() {
 		showWelcomeMsg();
@@ -94,6 +94,7 @@ public class Menu {
 
 		Game game = new Game(name, n, m, k);
 		int score = game.play();
+		System.out.println("Resolt: " + name + ": " + (k - score) + " mirrors remaining. Score: " + score);
 	}
 
 	public int systemMenu() {

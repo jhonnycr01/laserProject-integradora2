@@ -9,12 +9,15 @@ public class Game {
 
 	private Node start;
 	private Node end;
+	private Node located;
 
 	private Node mirrorEndBackup;
 	private char mirrorCharEndBackup;
 
 	private Node mirrorStartBackup;
 	private char mirrorCharStartBackup;
+
+	private char locatedCharBackup;
 
 	private String nombre;
 	private int score;
@@ -42,7 +45,7 @@ public class Game {
 		 * una frase indicando el nickname del usuario seguido de cuántos espejos faltan
 		 * por ubicar. Por ejemplo: seyerman: 4 mirrors remaining.
 		 */
-		System.out.println(nombre + ": " + board.getMirrows() + " mirrors remaining. Score: " + score);
+		System.out.println(nombre + ": " + (board.getMirrows() - score) + " mirrors remaining. Score: " + score);
 
 		Scanner sc = new Scanner(System.in);
 		System.out.println(board);
@@ -60,6 +63,9 @@ public class Game {
 		if (mirrorEndBackup != null) {
 			mirrorEndBackup.setLetter(mirrorCharEndBackup);
 		}
+		if (located != null) {
+			located.setLetter(locatedCharBackup);
+		}
 
 		String input = sc.nextLine();
 
@@ -68,12 +74,45 @@ public class Game {
 		}
 
 		if (input.startsWith("L")) {
-
+			locate(input);
+			if (board.getMirrows() == score) {
+				return;
+			}
 		} else {
 			move(input);
 		}
-		
+
 		shut();
+	}
+
+	private void locate(String input) {
+		// L2CL
+		int row = Integer.parseInt(String.valueOf(input.charAt(1)));
+		int col = input.charAt(2) - 64;
+
+		// Get character provided by user for the mirror direction
+		Character o = null;
+		if (input.length() >= 4) {
+			if (input.charAt(3) == 'R') {
+				o = '/';
+			} else if (input.charAt(3) == 'L') {
+				o = '\\';
+			}
+		}
+		located = board.findByCol(board.getFirst(), col);
+		located = board.findByRow(located, row);
+		locatedCharBackup = located.getLetter();
+
+		System.out.println(input + " Direction " + o + " located " + located);
+
+		if (located.getLetter() == o) {
+			if (!located.isMirrirLocated()) {
+				located.setMirrirLocated(true);
+				++score;
+			}
+		} else {
+			located.setLetter('X');
+		}
 	}
 
 	private void move(String input) {
@@ -86,6 +125,7 @@ public class Game {
 
 		mirrorStartBackup = start;
 		mirrorCharStartBackup = start.getLetter();
+		located = null;
 
 		start.setLetter('S');
 
@@ -133,7 +173,7 @@ public class Game {
 	}
 
 	private Node moveLeft(Node from) {
-		if (from.getLetter() == '/') {
+		if (from.getLetter() == '/' || (from == mirrorStartBackup && mirrorCharStartBackup == '/')) {
 			Node next = from.getDown();
 			if (next == null) {
 				mirrorEndBackup = from;
@@ -144,7 +184,7 @@ public class Game {
 			return moveDown(next);
 		}
 
-		if (from.getLetter() == '\\') {
+		if (from.getLetter() == '\\' || (from == mirrorStartBackup && mirrorCharStartBackup == '\\')) {
 			Node next = from.getUp();
 			if (next == null) {
 				mirrorEndBackup = from;
@@ -166,7 +206,7 @@ public class Game {
 	}
 
 	private Node moveRight(Node from) {
-		if (from.getLetter() == '/') {
+		if (from.getLetter() == '/' || (from == mirrorStartBackup && mirrorCharStartBackup == '/')) {
 			Node next = from.getUp();
 			if (next == null) {
 				mirrorEndBackup = from;
@@ -177,7 +217,7 @@ public class Game {
 			return moveUp(next);
 		}
 
-		if (from.getLetter() == '\\') {
+		if (from.getLetter() == '\\' || (from == mirrorStartBackup && mirrorCharStartBackup == '\\')) {
 			Node next = from.getDown();
 			if (next == null) {
 				mirrorEndBackup = from;
@@ -199,7 +239,7 @@ public class Game {
 	}
 
 	private Node moveUp(Node from) {
-		if (from.getLetter() == '/') {
+		if (from.getLetter() == '/' || (from == mirrorStartBackup && mirrorCharStartBackup == '/')) {
 			Node next = from.getNext();
 			if (next == null) {
 				mirrorEndBackup = from;
@@ -210,7 +250,7 @@ public class Game {
 			return moveRight(next);
 		}
 
-		if (from.getLetter() == '\\') {
+		if (from.getLetter() == '\\' || (from == mirrorStartBackup && mirrorCharStartBackup == '\\')) {
 			Node next = from.getPrev();
 			if (next == null) {
 				mirrorEndBackup = from;
@@ -232,7 +272,7 @@ public class Game {
 	}
 
 	private Node moveDown(Node from) {
-		if (from.getLetter() == '/') {
+		if (from.getLetter() == '/' || (from == mirrorStartBackup && mirrorCharStartBackup == '/')) {
 			Node next = from.getPrev();
 			if (next == null) {
 				mirrorEndBackup = from;
@@ -243,7 +283,7 @@ public class Game {
 			return moveLeft(next);
 		}
 
-		if (from.getLetter() == '\\') {
+		if (from.getLetter() == '\\' || (from == mirrorStartBackup && mirrorCharStartBackup == '\\')) {
 			Node next = from.getNext();
 			if (next == null) {
 				mirrorEndBackup = from;

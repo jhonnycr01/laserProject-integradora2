@@ -16,6 +16,9 @@ public class Main {
 			menu.shut();
 		}
 		*/
+		
+		// _ \
+		// 2 /
 	}
 
 }

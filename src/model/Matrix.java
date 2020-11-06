@@ -124,6 +124,7 @@ public class Matrix {
 		if (current.getLetter() == ' ') {
 			int dir = r.nextInt(10);
 			current.setLetter(dir < 5 ? '/' : '\\');
+			current.setMirror(true);
 			return true;
 		}
 		return false;
