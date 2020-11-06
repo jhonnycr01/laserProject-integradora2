@@ -3,8 +3,7 @@ package model;
 import java.util.Scanner;
 
 public class Game {
-	private Leaf p1;
-	private BinaryTree scores;
+	
 	private Matrix board;
 
 	private Node start;
@@ -25,8 +24,6 @@ public class Game {
 	public Game(String nick, int n, int m, int k) {
 		nombre = nick;
 		score = 0;
-		scores = new BinaryTree();
-		p1 = new Leaf(0, nick);
 		board = new Matrix(n, m, k);
 	}
 

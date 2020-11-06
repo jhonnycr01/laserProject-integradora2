@@ -95,9 +95,9 @@ public class Node {
 		}
 		
 		//TODO delete
-		/*if(isMirror && !isMirrirLocated) {
+		if(isMirror && !isMirrirLocated) {
 			toShow = (char)(letter + 3);
-		}*/
+		}
 		
 		return "[" + toShow + "]";// + row + "," + col;
 	}

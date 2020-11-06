@@ -3,20 +3,23 @@ package ui;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import model.BinaryTree;
 import model.Game;
-import model.Matrix;
+import model.Leaf;
 
 public class Menu {
+	
+	private BinaryTree scores;
 
 	// Game g;
 	// BinaryTree scores;
 	//Matrix board;
 
 	public Menu() {
+		scores = new BinaryTree();
+				
 		showWelcomeMsg();
 		systemHandler();
-
-		// scores = new BinaryTree();
 
 	}
 
@@ -76,8 +79,7 @@ public class Menu {
 	}
 
 	private void checkScores() {
-		// scores.printInorder();
-
+		scores.printInorder();
 	}
 
 	private void play() {
@@ -94,7 +96,10 @@ public class Menu {
 
 		Game game = new Game(name, n, m, k);
 		int score = game.play();
-		System.out.println("Resolt: " + name + ": " + (k - score) + " mirrors remaining. Score: " + score);
+		System.out.println("Result: " + name + ": " + (k - score) + " mirrors remaining. Score: " + score);
+		Leaf p1 = new Leaf(score, name);
+		// TODO insertar
+		scores.addLeaf(p1);
 	}
 
 	public int systemMenu() {

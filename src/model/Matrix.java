@@ -54,7 +54,6 @@ public class Matrix {
 	private void createCol(int i, int j, Node prev, Node rowPrev) {
 		if (j <= numCols) {
 			Node current = new Node(i, j);
-			System.out.println(i + " " + j);
 			current.setPrev(prev);
 			prev.setNext(current);
 
@@ -114,10 +113,9 @@ public class Matrix {
 		Random r = new Random();
 		int i = r.nextInt(numRows) + 1;
 		int j = r.nextInt(numCols) + 1;
-		System.out.println("Find " + i + " " + j);
-
+		
 		Node current = first;
-		System.out.println("First " + current.getRow() + " " + current.getCol());
+		
 		current = findByRow(current, i);
 		current = findByCol(current, j);
 
